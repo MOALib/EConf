@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <cstring>
 #include <algorithm>
 #include <map>
 #include <vector>
@@ -54,6 +55,12 @@ namespace MXPSQL::ECONF {
             #else
                 return "unknown";
             #endif
+        }
+
+        char* unconstChar(const char* str){
+            char* ret = new char[strlen(str) + 1];
+            strcpy(ret, str);
+            return ret;
         }
 
         class LanguageParser{
@@ -223,11 +230,11 @@ namespace MXPSQL::ECONF {
             int rc = 0;
 
             #ifdef __CYGWIN__
-                rc = putenv((char*) env.c_str());
+                rc = putenv(Internal::unconstChar(env.c_str()));
             #elif defined(_WIN32)
-                rc = _putenv((char*) env.c_str());
+                rc = _putenv(env.c_str());
             #else
-                rc = putenv((char*) env.c_str());
+                rc = putenv(Internal::unconstChar(env.c_str()));
             #endif
 
             if(rc != 0){
