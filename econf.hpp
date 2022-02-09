@@ -222,12 +222,13 @@ namespace MXPSQL::ECONF {
 
             int rc = 0;
 
-            if(Internal::getOS() == "win"){
-                rc = _putenv(env.c_str());
-            }
-            else{
+            #ifdef __CYGWIN__
                 rc = putenv(env.c_str());
-            }
+            #elif defined(_WIN32)
+                rc = _putenv(env.c_str());
+            #else
+                rc = putenv(env.c_str());
+            #endif
 
             if(rc != 0){
                 throw Exception::ConfigEnvSetupException("Error setting environment variable");
