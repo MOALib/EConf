@@ -223,11 +223,11 @@ namespace MXPSQL::ECONF {
             int rc = 0;
 
             #ifdef __CYGWIN__
-                rc = putenv(env.c_str());
+                rc = putenv((char*) env.c_str());
             #elif defined(_WIN32)
-                rc = _putenv(env.c_str());
+                rc = _putenv((char*) env.c_str());
             #else
-                rc = putenv(env.c_str());
+                rc = putenv((char*) env.c_str());
             #endif
 
             if(rc != 0){
