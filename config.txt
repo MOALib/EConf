@@ -1,0 +1,5 @@
+# this comment can be used anywhere except in quotations
+
+a = 1, b=2
+
+;a = 1 this comment can only be used at the beginning
