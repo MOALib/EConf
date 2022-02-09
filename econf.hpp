@@ -223,7 +223,7 @@ namespace MXPSQL::ECONF {
             int rc = 0;
 
             if(Internal::getOS() == "win"){
-                rc = _putenv_s(name.c_str(), value.c_str());
+                rc = _putenv(name.c_str(), value.c_str());
             }
             else{
                 rc = putenv(env.c_str());
